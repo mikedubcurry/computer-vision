@@ -25,17 +25,23 @@ trainSmall.addEventListener('click', () => {
     trainLarge.disabled = true;
 })
 
-analyzeButton.addEventListener('click', analyze)
+analyzeButton.addEventListener('click', () => {
+    try {
+        analyze()
+
+    } catch (err) {
+        displayError(err)
+    }
+})
 
 function analyze() {
     const canvasData = getCanvasData();
 
     const inputData = tf.tensor4d(canvasData, [1, 28, 28, 1])
-
+    let predictions
     try {
         throw new Error();
-
-        const predictions = model.predict(inputData)
+        predictions = model.predict(inputData)
         const predictedValues = predictions.dataSync();
 
         const value = predictedValues.indexOf(Math.max(...predictedValues))
@@ -115,8 +121,8 @@ function getModel() {
 
 async function train(model, data, large = false) {
     const BATCH_SIZE = 512;
-    const TRAIN_DATA_SIZE = large ? 55000 : 5500;
-    const TEST_DATA_SIZE = large ? 10000 : 1000;
+    const TRAIN_DATA_SIZE = large ? 5500 : 5500;
+    const TEST_DATA_SIZE = large ? 1000 : 1000;
 
     const [trainXs, trainYs] = tf.tidy(() => {
         const d = data.nextTrainBatch(TRAIN_DATA_SIZE);
