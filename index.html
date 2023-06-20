@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <main class="h-screen flex flex-col gap-4 items-center justify-center bg-slate-600">
+        <div id="results"></div>
+        <canvas class="border-2" width="200" height="200" id="canvas"></canvas>
+        <button class="px-4 py-2 rounded-lg bg-blue-200" id="clear-button">Clear</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="analyze">Analyze</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="train-small">Train on Small Dataset</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="train-large">Train on Large Dataset</button>
+        <div id="spinner" class="flex flex-col gap-4 items-center justify-center hidden">
+            training...
+            <div class="border-b-2 border-red-200 w-32 h-32 rounded-full animate-spin"></div>
+        </div>
+    </main>
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="/canvas.js"></script>
+</body>
+
+</html>
