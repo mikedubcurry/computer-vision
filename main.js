@@ -40,7 +40,6 @@ function analyze() {
     const inputData = tf.tensor4d(canvasData, [1, 28, 28, 1])
     let predictions
     try {
-        throw new Error();
         predictions = model.predict(inputData)
         const predictedValues = predictions.dataSync();
 
