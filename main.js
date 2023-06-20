@@ -1,5 +1,5 @@
 import * as tf from '@tensorflow/tfjs'
-import * as tfvis from '@tensorflow/tfjs-vis'
+
 import { MnistData } from './data'
 import { getCanvasData } from './canvas'
 
@@ -106,11 +106,6 @@ function getModel() {
 
 
 async function train(model, data, large = false) {
-    const metrics = ['loss', 'val_loss', 'acc', 'val_acc'];
-    const container = {
-        name: 'Model Training', tab: 'Model', styles: { height: '1000px' }
-    };
-
     const BATCH_SIZE = 512;
     const TRAIN_DATA_SIZE = large ? 55000 : 5500;
     const TEST_DATA_SIZE = large ? 10000 : 1000;
