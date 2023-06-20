@@ -11,16 +11,28 @@
 
 <body>
     <main class="h-screen flex flex-col gap-4 items-center justify-center bg-slate-600">
+        <h1 class="text-3xl">Computer Vision</h1>
+        <span class="text-xl text-red-800 bg-slate-200 p-8 rounded-lg hidden" id="error"></span>
         <div id="results"></div>
         <canvas class="border-2" width="200" height="200" id="canvas"></canvas>
         <button class="px-4 py-2 rounded-lg bg-blue-200" id="clear-button">Clear</button>
-        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="analyze">Analyze</button>
-        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="train-small">Train on Small Dataset</button>
-        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200" id="train-large">Train on Large Dataset</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200"
+            id="analyze">Analyze</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200"
+            id="train-small">Train on Small Dataset</button>
+        <button class="disabled:text-gray-500 disabled:bg-gray-200 px-4 py-2 rounded-lg bg-blue-200"
+            id="train-large">Train on Large Dataset</button>
         <div id="spinner" class="flex flex-col gap-4 items-center justify-center hidden">
             training...
             <div class="border-b-2 border-red-200 w-32 h-32 rounded-full animate-spin"></div>
         </div>
+        <ol class="list-decimal">
+            <li>Train the model with either a small (5500 images) or large (550000 images) dataset</li>
+            <li>Draw a number from 0 to 9 in the bordered area above</li>
+            <li>Click Analyze to get your results</li>
+            <li>Clear the canvas and try other numbers or patterns</li>
+            <li>Refresh your browser to train again</li>
+        </ol>
     </main>
     <script type="module" src="/main.js"></script>
     <script type="module" src="/canvas.js"></script>

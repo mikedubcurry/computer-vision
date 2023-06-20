@@ -6,19 +6,20 @@ import { getCanvasData } from './canvas'
 const trainLarge = document.getElementById('train-large')
 const trainSmall = document.getElementById('train-small')
 const analyzeButton = document.getElementById('analyze')
+const errorContainer = document.getElementById('error');
 
 analyzeButton.disabled = true;
 
 const model = getModel();
 
 trainLarge.addEventListener('click', () => {
-    startTraining(true)
+    startTraining(true).catch(displayError)
 
     trainSmall.disabled = true;
     trainLarge.disabled = true;
 })
 trainSmall.addEventListener('click', () => {
-    startTraining();
+    startTraining().catch(displayError);
 
     trainSmall.disabled = true;
     trainLarge.disabled = true;
@@ -31,12 +32,19 @@ function analyze() {
 
     const inputData = tf.tensor4d(canvasData, [1, 28, 28, 1])
 
-    const predictions = model.predict(inputData)
-    const predictedValues = predictions.dataSync();
+    try {
+        throw new Error();
 
-    const value = predictedValues.indexOf(Math.max(...predictedValues))
+        const predictions = model.predict(inputData)
+        const predictedValues = predictions.dataSync();
 
-    document.getElementById('results').innerHTML = `You drew a ${value}`
+        const value = predictedValues.indexOf(Math.max(...predictedValues))
+
+        document.getElementById('results').innerHTML = `You drew a ${value}`
+    } catch (err) {
+        console.error(err);
+        throw new Error('Error analyzing data')
+    }
 
     inputData.dispose();
     predictions.dispose();
@@ -135,14 +143,25 @@ async function train(model, data, large = false) {
 }
 
 async function startTraining(large = false) {
-    const spinner = document.getElementById('spinner');
-    spinner.classList.remove('hidden')
-    const data = new MnistData();
-    await data.load();
+    try {
+        const spinner = document.getElementById('spinner');
+        spinner.classList.remove('hidden')
+        const data = new MnistData();
+        await data.load();
 
-    await train(model, data, large)
-    analyzeButton.disabled = false;
-    document.getElementById('spinner').remove();
+        await train(model, data, large)
+        analyzeButton.disabled = false;
+    }
+    catch (err) {
+        console.error(err);
+        throw new Error('Error training model')
+    }
 }
 
-
+/**
+    * @param {Error} err
+    */
+function displayError(err) {
+    errorContainer.classList.remove('hidden')
+    errorContainer.innerHTML = err.message
+}
