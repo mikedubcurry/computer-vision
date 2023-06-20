@@ -156,6 +156,7 @@ async function startTraining(large = false) {
 
         await train(model, data, large)
         analyzeButton.disabled = false;
+        spinner.classList.add('hidden')
     }
     catch (err) {
         console.error(err);
